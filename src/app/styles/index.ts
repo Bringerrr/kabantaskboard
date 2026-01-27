@@ -1,0 +1,1 @@
+export { StyledRoot } from "./root";
