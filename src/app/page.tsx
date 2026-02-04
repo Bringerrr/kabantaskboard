@@ -1,9 +1,9 @@
-import { Button } from "@mui/material";
+import { LoginPage } from "src/pages/Login";
 
 export default function Home() {
   return (
     <div>
-      <Button>Test</Button>
+      <LoginPage />
     </div>
   );
 }
