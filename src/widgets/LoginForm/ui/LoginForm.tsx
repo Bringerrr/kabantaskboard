@@ -1,7 +1,6 @@
 "use client";
 
 import { useActionState } from "react";
-import { useRouter } from "next/navigation";
 import {
   Box,
   Button,
@@ -20,6 +19,7 @@ import { classNames } from "src/shared/lib/classnames/classNames";
 import cls from "./LoginForm.module.scss";
 import { zodValidate } from "src/shared/utils";
 import { loginFormSchema } from "../model/const/loginForm.schema";
+import { useUserStore } from "src/entities/User";
 
 interface LoginFormErrors {
   email?: string;
@@ -31,20 +31,8 @@ interface LoginProps {
   className?: string;
 }
 
-async function loginAction(
-  prevState: LoginFormErrors | null,
-  formData: FormData,
-): Promise<LoginFormErrors | null> {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-
-  const validation = await zodValidate(loginFormSchema, formData);
-
-  if (!validation.success) return validation.errors;
-  else return null;
-}
-
 export const LoginForm = ({ className }: LoginProps) => {
-  const router = useRouter();
+  const { setUser } = useUserStore();
 
   const [state, formAction, isPendingAction] = useActionState(
     loginAction,
@@ -52,6 +40,24 @@ export const LoginForm = ({ className }: LoginProps) => {
   );
 
   const isLoading = isPendingAction;
+
+  async function loginAction(
+    prevState: LoginFormErrors | null,
+    formData: FormData,
+  ): Promise<LoginFormErrors | null> {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    const validation = await zodValidate(loginFormSchema, formData);
+
+    if (!validation.success) return validation.errors;
+
+    setUser({
+      id: "12",
+      username: "Bob",
+    });
+
+    return null;
+  }
 
   return (
     <Container

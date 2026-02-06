@@ -1,6 +1,6 @@
 const interfaceConst = 'interface';
 
-module.exports = (componentName) => `import { classNames } from 'shared/lib/classNames/classNames';
+module.exports = (componentName) => `import { classNames } from 'src/shared/lib/classnames/classNames';
 import cls from './${componentName}.module.scss';
 
 ${interfaceConst} ${componentName}Props {
